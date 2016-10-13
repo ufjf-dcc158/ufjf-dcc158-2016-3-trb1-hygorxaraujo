@@ -24,6 +24,7 @@ function tabuleiro(linha, coluna) {
   }
   console.log(tab);
   console.log(JSON.stringify(tab));
+  return tab;
 }
 
 function between(num, min, max) {

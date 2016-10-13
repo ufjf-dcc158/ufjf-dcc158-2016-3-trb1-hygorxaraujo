@@ -1,5 +1,6 @@
 const url = require('url');
 const queryString = require('querystring');
+const modXadrez = require('./modXadrez');
 
 function index(request, response) {
   response.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
@@ -154,31 +155,7 @@ function xadrez(request, response) {
   console.log(query);
   var linha = parseInt(query.linha);
   var coluna = parseInt(query.coluna);
-  var tab = [[0, 1, 0, 1, 0, 1, 0, 1],
-			[1, 0, 1, 0, 1, 0, 1, 0],
-			[0, 1, 0, 1, 0, 1, 0, 1],
-			[1, 0, 1, 0, 1, 0, 1, 0],
-			[0, 1, 0, 1, 0, 1, 0, 1],
-			[1, 0, 1, 0, 1, 0, 1, 0],
-			[0, 1, 0, 1, 0, 1, 0, 1],
-			[1, 0, 1, 0, 1, 0, 1, 0]];
-  if (!isNaN(linha) && !isNaN(coluna)) {
-    if (between(linha, 0, 9) && between(coluna, 0, 9)) {
-        linha = linha - 1;
-        coluna = coluna - 1;
-        tab[linha][coluna] = 3;
-        markKnightMove(linha-1, coluna-2, tab);
-        markKnightMove(linha-2, coluna-1, tab);
-        markKnightMove(linha-1, coluna+2, tab);
-        markKnightMove(linha-2, coluna+1, tab);
-        markKnightMove(linha+1, coluna-2, tab);
-        markKnightMove(linha+2, coluna-1, tab);
-        markKnightMove(linha+1, coluna+2, tab);
-        markKnightMove(linha+2, coluna+1, tab);
-    }
-  }
-  console.log(tab);
-  console.log(JSON.stringify(tab));
+  var tab = modXadrez.tabuleiro(linha, coluna);
   response.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
   response.write("<h1>Xadrez</h1>");
   var xadrezHtml = "<table frame='box' style='table-layout:fixed;'>";
@@ -211,19 +188,15 @@ function xadrez(request, response) {
   response.end();
 };
 
-function between(num, min, max) {
-  if (num > min && num < max) {
-    return true;
-  }
-  return false;
-};
-
-function markKnightMove(lin, col, tab) {
-  if (between(lin, -1, 8) && between(col, -1, 8)) {
-    console.log("tab[lin][col]:" + tab[lin][col]);
-    tab[lin][col] = 2;
-  }
-  return tab;
+function xadrezJson(request, response) {
+  var query = url.parse(request.url, true).query;
+  console.log(query);
+  var linha = parseInt(query.linha);
+  var coluna = parseInt(query.coluna);
+  var tab = modXadrez.tabuleiro(linha, coluna);
+  response.writeHead(200, {'Content-Type':'application/json; charset=utf-8'});
+  response.write(JSON.stringify(tab));
+  response.end();
 };
 
 exports.index = index;
@@ -233,3 +206,4 @@ exports.aleatorios = aleatorios;
 exports.primos = primos;
 exports.equacao = equacao;
 exports.xadrez = xadrez;
+exports.xadrezJson = xadrezJson;

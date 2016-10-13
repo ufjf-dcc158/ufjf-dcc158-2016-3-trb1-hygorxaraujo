@@ -2,12 +2,13 @@ var http = require('http');
 var url = require('url');
 
 function start(router) {
-  console.log("Ouvindo conexões na porta 8888");
+  var port = process.env.PORT || 3000;
+  console.log("Ouvindo conexões na porta " + port);
 
   function onRequest(request, response) {
     console.log("Nova requisição!");
     router.route(url.parse(request.url).pathname, request, response);
   };
-  http.createServer(onRequest).listen(process.env.PORT);
+  http.createServer(onRequest).listen(port);
 }
 module.exports.start = start;
