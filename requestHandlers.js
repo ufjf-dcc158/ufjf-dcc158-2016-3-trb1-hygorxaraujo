@@ -9,7 +9,8 @@ function index(request, response) {
   response.write("<a  href=\"../aleatorios.html\">Aleatórios</a><br />");
   response.write("<a  href=\"../primos.html?N1=1&N2=10\">Primos</a><br />");
   response.write("<a  href=\"../equacao.html\">Equação</a><br />");
-  response.write("<a  href=\"../xadrez.html\">Xadrez</a><br />");
+  response.write("<a  href=\"../xadrez.html?linha=3&coluna=3\">Xadrez</a><br />");
+  response.write("<a  href=\"../xadrez.json?linha=3&coluna=3\">Xadrez Json</a><br />");
   response.end();
 };
 
