@@ -8,6 +8,6 @@ function start(router) {
     console.log("Nova requisição!");
     router.route(url.parse(request.url).pathname, request, response);
   };
-  http.createServer(onRequest).listen(8888);
+  http.createServer(onRequest).listen(process.env.PORT);
 }
 module.exports.start = start;
