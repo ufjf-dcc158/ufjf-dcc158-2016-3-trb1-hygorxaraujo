@@ -5,7 +5,7 @@ function index(request, response) {
   response.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
   response.write("<h1>Início</h1>");
   response.write("<a  href=\"../sobre.html\">Sobre</a><br />");
-  response.write("<a  href=\"../aleatorios.html\">Aleatorios</a><br />");
+  response.write("<a  href=\"../aleatorios.html\">Aleatórios</a><br />");
   response.write("<a  href=\"../primos.html?N1=1&N2=10\">Primos</a><br />");
   response.write("<a  href=\"../equacao.html\">Equação</a><br />");
   response.write("<a  href=\"../xadrez.html\">Xadrez</a><br />");
@@ -178,6 +178,7 @@ function xadrez(request, response) {
     }
   }
   console.log(tab);
+  console.log(JSON.stringify(tab));
   response.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
   response.write("<h1>Xadrez</h1>");
   var xadrezHtml = "<table frame='box' style='table-layout:fixed;'>";
